@@ -165,20 +165,22 @@ export default function JobDetailsStep({ formMethods }) {
                 <CommandInput placeholder="Search manager..." />
                 <CommandEmpty>No manager found.</CommandEmpty>
                 <CommandGroup>
-                  {managerOptions.map((name) => (
+                  {managerOptions.map((manager) => (
                     <CommandItem
-                      key={name}
+                      key={manager.id}
                       onSelect={() => {
-                        setManagerName(name);
-                        setValue("manager", name);
+                        setManagerName(manager.name);
+                        setValue("manager", manager.name);
                       }}
                     >
                       <Check
                         className={`mr-2 h-4 w-4 ${
-                          managerName === name ? "opacity-100" : "opacity-0"
+                          managerName === manager.name
+                            ? "opacity-100"
+                            : "opacity-0"
                         }`}
                       />
-                      <div>{name}</div>
+                      <div>{manager.name}</div>
                     </CommandItem>
                   ))}
                 </CommandGroup>

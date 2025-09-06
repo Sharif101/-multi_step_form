@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -15,9 +15,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Settings, Star } from "lucide-react";
 import {
-  availableSkills,
   experienceLevels,
   remoteOptions,
+  skillsByDepartment,
   workingHoursOptions,
 } from "@/utils/formData.";
 
@@ -28,7 +28,15 @@ export default function SkillsPreferencesStep() {
     setValue,
     formState: { errors },
   } = useFormContext();
+
+  const department = watch("department");
   const selectedSkills = watch("primarySkills") || [];
+
+  // Filter skills based on department
+  const availableSkills = useMemo(() => {
+    if (!department) return [];
+    return skillsByDepartment[department] || [];
+  }, [department]);
 
   // Auto initialize skill experience
   useEffect(() => {
@@ -56,40 +64,46 @@ export default function SkillsPreferencesStep() {
       {/* Skills Selection */}
       <div className="space-y-4">
         <Label className="text-base font-medium">Primary Skills *</Label>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {availableSkills.map((skill) => (
-            <Controller
-              key={skill}
-              name="primarySkills"
-              control={control}
-              render={({ field }) => {
-                const isChecked = field.value?.includes(skill);
-                return (
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id={skill}
-                      checked={isChecked}
-                      onCheckedChange={(checked) => {
-                        if (checked)
-                          field.onChange([...(field.value || []), skill]);
-                        else
-                          field.onChange(
-                            field.value.filter((s) => s !== skill)
-                          );
-                      }}
-                    />
-                    <Label
-                      htmlFor={skill}
-                      className="text-sm font-normal cursor-pointer"
-                    >
-                      {skill}
-                    </Label>
-                  </div>
-                );
-              }}
-            />
-          ))}
-        </div>
+        {department ? (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {availableSkills.map((skill) => (
+              <Controller
+                key={skill}
+                name="primarySkills"
+                control={control}
+                render={({ field }) => {
+                  const isChecked = field.value?.includes(skill);
+                  return (
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id={skill}
+                        checked={isChecked}
+                        onCheckedChange={(checked) => {
+                          if (checked)
+                            field.onChange([...(field.value || []), skill]);
+                          else
+                            field.onChange(
+                              field.value.filter((s) => s !== skill)
+                            );
+                        }}
+                      />
+                      <Label
+                        htmlFor={skill}
+                        className="text-sm font-normal cursor-pointer"
+                      >
+                        {skill}
+                      </Label>
+                    </div>
+                  );
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500">
+            Select a department in the previous step to see relevant skills.
+          </p>
+        )}
         {errors.primarySkills && (
           <p className="text-red-500 text-sm">{errors.primarySkills.message}</p>
         )}
