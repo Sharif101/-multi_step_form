@@ -14,48 +14,12 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { Settings, Star } from "lucide-react";
-
-const availableSkills = [
-  "JavaScript",
-  "Python",
-  "Java",
-  "React",
-  "Node.js",
-  "SQL",
-  "AWS",
-  "Docker",
-  "Git",
-  "Project Management",
-  "Data Analysis",
-  "Machine Learning",
-  "UI/UX Design",
-  "Marketing",
-  "Sales",
-  "Customer Service",
-  "Leadership",
-  "Communication",
-];
-
-const experienceLevels = [
-  { value: "beginner", label: "Beginner (0-1 years)" },
-  { value: "intermediate", label: "Intermediate (2-4 years)" },
-  { value: "advanced", label: "Advanced (5-7 years)" },
-  { value: "expert", label: "Expert (8+ years)" },
-];
-
-const workingHoursOptions = [
-  { value: "standard", label: "Standard (9 AM - 5 PM)" },
-  { value: "early", label: "Early (7 AM - 3 PM)" },
-  { value: "late", label: "Late (11 AM - 7 PM)" },
-  { value: "flexible", label: "Flexible Hours" },
-];
-
-const remoteOptions = [
-  { value: "onsite", label: "On-site only" },
-  { value: "hybrid", label: "Hybrid (2-3 days remote)" },
-  { value: "remote", label: "Fully remote" },
-  { value: "no-preference", label: "No preference" },
-];
+import {
+  availableSkills,
+  experienceLevels,
+  remoteOptions,
+  workingHoursOptions,
+} from "@/utils/formData.";
 
 export default function SkillsPreferencesStep() {
   const {

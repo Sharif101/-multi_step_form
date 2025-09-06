@@ -11,16 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Phone, Shield } from "lucide-react";
-
-const relationshipOptions = [
-  "Spouse",
-  "Parent",
-  "Sibling",
-  "Child",
-  "Friend",
-  "Colleague",
-  "Other",
-];
+import { relationshipOptions } from "@/utils/formData.";
 
 export default function EmergencyContactStep() {
   const {

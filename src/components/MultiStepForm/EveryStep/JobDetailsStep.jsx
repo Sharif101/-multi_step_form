@@ -24,6 +24,7 @@ import {
   CommandItem,
 } from "@/components/ui/command";
 import { Check, ChevronsUpDown, Briefcase } from "lucide-react";
+import { managerOptions } from "@/utils/formData.";
 
 export default function JobDetailsStep({ formMethods }) {
   const {
@@ -35,7 +36,6 @@ export default function JobDetailsStep({ formMethods }) {
 
   const [managerName, setManagerName] = useState("");
   const jobType = watch("jobType");
-  const managerOptions = ["Sarah Johnson", "Mike Chen"];
 
   return (
     <div className="space-y-6">

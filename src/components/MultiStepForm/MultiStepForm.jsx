@@ -13,6 +13,7 @@ import SkillsPreferencesStep from "./EveryStep/SkillsPreferencesStep";
 import EmergencyContactStep from "./EveryStep/EmergencyContactStep";
 import ReviewSubmitStep from "./EveryStep/ReviewSubmitStep";
 import { formSchema } from "@/schemas/formSchema";
+import { stepFields } from "@/utils/formData.";
 
 const steps = [
   { id: 1, title: "Personal Info", component: PersonalInfoStep },
@@ -31,34 +32,6 @@ export default function MultiStepForm() {
     defaultValues: {},
     mode: "onTouched",
   });
-
-  // Map each step to the fields it contains
-  const stepFields = {
-    1: ["fullName", "email", "phone", "dob", "profilePicture"],
-    2: [
-      "department",
-      "positionTitle",
-      "startDate",
-      "jobType",
-      "salary",
-      "manager",
-    ],
-    3: [
-      "primarySkills",
-      "skillExperience",
-      "preferredHours",
-      "remotePreference",
-      "extraNotes",
-    ],
-    4: [
-      "emergencyName",
-      "relationship",
-      "emergencyPhone",
-      "guardianName",
-      "guardianPhone",
-    ],
-    5: ["confirmInfo"],
-  };
 
   const handleNext = async () => {
     const fieldsToValidate = stepFields[currentStep];
